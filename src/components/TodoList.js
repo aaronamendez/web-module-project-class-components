@@ -9,7 +9,13 @@ class TodoList extends Component {
 		return (
 			<div>
 				{this.props.tasks.map((task) => {
-					return <Todo key={task.id} task={task} />;
+					return (
+						<Todo
+							key={task.id}
+							handleToggle={this.props.handleToggleTodo}
+							task={task}
+						/>
+					);
 				})}
 			</div>
 		);

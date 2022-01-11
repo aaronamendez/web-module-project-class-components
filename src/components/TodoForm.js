@@ -15,10 +15,26 @@ export class TodoForm extends Component {
 		});
 	};
 
+	handleClearTodos = (e) => {
+		e.preventDefault();
+		this.props.handleClearCompleted();
+	};
+
+	handleSubmit = (e) => {
+		// Handler
+		e.preventDefault();
+		this.props.handleAddTodo(this.state.input);
+	};
+
+	handleToggle = () => {
+		console.log('Toggle');
+		// Handler
+	};
+
 	render() {
 		return (
 			<div>
-				<form>
+				<form onSubmit={this.handleSubmit}>
 					<input
 						type="text"
 						placeholder="Enter Todo ..."
@@ -27,8 +43,8 @@ export class TodoForm extends Component {
 					<br />
 					<button>Add New Todo</button>
 					<br />
-					<button>Clear Finished Todo's </button>
 				</form>
+				<button onClick={this.handleClearTodos}>Clear Finished Todo's </button>
 			</div>
 		);
 	}

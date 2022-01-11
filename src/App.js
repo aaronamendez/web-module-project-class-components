@@ -30,12 +30,60 @@ class App extends Component {
 			tasks: tasks,
 		};
 	}
+
+	handleAddTodo = (todo) => {
+		const todoToAdd = {
+			task: todo,
+			id: Date.now(),
+			completed: false,
+		};
+
+		this.setState({
+			...this.state,
+			tasks: [...this.state.tasks, todoToAdd],
+		});
+	};
+
+	handleClearCompleted = () => {
+		const clearedTodos = this.state.tasks.filter((task) => {
+			return task.completed === false;
+		});
+
+		this.setState({
+			...this.state,
+			tasks: clearedTodos,
+		});
+	};
+
+	handleToggleTodo = (selectedTodo) => {
+		this.setState({
+			...this.state,
+			tasks: this.state.tasks.map((task) => {
+				if (task.id === selectedTodo.id) {
+					return {
+						...task,
+						completed: !task.completed,
+					};
+				} else {
+					return task;
+				}
+			}),
+		});
+	};
+
 	render() {
 		return (
 			<div>
 				<h2>Welcome to your Todo App!</h2>
-				<TodoForm input={this.state.input} />
-				<TodoList tasks={this.state.tasks} />
+				<TodoForm
+					input={this.state.input}
+					handleAddTodo={this.handleAddTodo}
+					handleClearCompleted={this.handleClearCompleted}
+				/>
+				<TodoList
+					tasks={this.state.tasks}
+					handleToggleTodo={this.handleToggleTodo}
+				/>
 			</div>
 		);
 	}
